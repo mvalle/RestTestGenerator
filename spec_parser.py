@@ -1,6 +1,4 @@
 
-
-
 if __name__ == '__main__':
     classes = {}
     for line in open("spec"):
