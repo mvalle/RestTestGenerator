@@ -201,18 +201,27 @@ class TestTestClass(unittest.TestCase):
         domain_transfer = g.get_class("domain_transfer").generate_class()
         domain_restore = g.get_class("domain_restore").generate_class()
 
+        self.domain_assetions(domain)
+        self.search_assertions(search)
+        self.domain_contacts_assertions(domain_contacts)
+        self.domain_nameservers_assertions(domain_nameservers)
+        self.domain_renew_assertions(domain_renew)
+        self.domain_transfer_assertions(domain_transfer)
+        self.domain_restore_assertions(domain_restore)
+
+    def domain_assetions(self, domain):
         self.assertTrue(domain.find("class DomainTest(requesttest.RequestTest):") > 0)
         self.assertTrue(domain.find("def test_post_domain_by_domain(self):") > 0)
         self.assertTrue(domain.find("def test_get_domain_by_domain(self):") > 0)
         self.assertTrue(domain.find('response = get( "domain/"+domain )') > 0)
         self.assertTrue(domain.find('response = post( "domain/"+domain )') > 0)
 
+    def search_assertions(self, search):
         self.assertTrue(search.find("class SearchTest(requesttest.RequestTest):") > 0)
         self.assertTrue(search.find("def test_get_search_by_domain(self):") > 0)
         self.assertTrue(search.find('response = get( "search/"+domain )') > 0)
 
-
-        dc = domain_contacts
+    def domain_contacts_assertions(self, dc):
         self.assertTrue(dc.find("class Domain_contactsTest(requesttest.RequestTest):") > 0)
         self.assertTrue(dc.find("def test_post_domain_by_domain_contacts(self):") > 0)
         self.assertTrue(dc.find("def test_get_domain_by_domain_contacts(self):") > 0)
@@ -225,8 +234,7 @@ class TestTestClass(unittest.TestCase):
         self.assertTrue(dc.find('response = get( "domain/"+domain+"/contacts/"+id )') > 0)
         self.assertTrue(dc.find('response = put( "domain/"+domain+"/contacts/"+id )') > 0)
 
-        
-        dn = domain_nameservers
+    def domain_nameservers_assertions(self, dn):
         self.assertTrue(dn.find("class Domain_nameserversTest(requesttest.RequestTest):") > 0)
         self.assertTrue(dn.find("def test_post_domain_by_domain_nameservers(self):") > 0)
         self.assertTrue(dn.find("def test_get_domain_by_domain_nameservers(self):") > 0)
@@ -238,19 +246,17 @@ class TestTestClass(unittest.TestCase):
         self.assertTrue(dn.find('response = get( "domain/"+domain+"/nameservers/" )') > 0)
         self.assertTrue(dn.find('response = get( "domain/"+domain+"/nameservers/"+id )') > 0)
 
-        
-        dr = domain_renew
+    def domain_renew_assertions(self, dr):
         self.assertTrue(dr.find("class Domain_renewTest(requesttest.RequestTest):") > 0)
         self.assertTrue(dr.find("def test_put_domain_by_domain_renew(self):") > 0)
         self.assertTrue(dr.find('response = put( "domain/"+domain+"/renew/" )') > 0)
 
-
-        dt = domain_transfer
+    def domain_transfer_assertions(self, dt):
         self.assertTrue(dt.find("class Domain_transferTest(requesttest.RequestTest):") > 0)
         self.assertTrue(dt.find("def test_put_domain_by_domain_transfer(self):") > 0)
         self.assertTrue(dt.find('response = put( "domain/"+domain+"/transfer/" )') > 0)
 
-        drs = domain_restore
+    def domain_restore_assertions(self, drs):
         self.assertTrue(drs.find("class Domain_restoreTest(requesttest.RequestTest):") > 0)
         self.assertTrue(drs.find("def test_put_domain_by_domain_restore(self):") > 0)
         self.assertTrue(drs.find('response = put( "domain/"+domain+"/restore/" )') > 0)
