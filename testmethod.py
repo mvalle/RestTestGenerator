@@ -31,14 +31,24 @@ class TestMethod:
        # print self.generate_parameter_list()
         code = """
 %(tab)sdef test_%(method)s_%(name)s(self):
+%(tab)s%(tab)s
+%(variables)s
 %(tab)s%(tab)sresponse = %(method)s( %(parameters)s )
+%(tab)s%(tab)s
 %(tab)s%(tab)sself.assert(response_code, 200) 
 """ % {"method":self.method, "name":self.name,
-       "tab":self.tab, "parameters":self.param}
-
+       "tab":self.tab, "parameters":self.param,
+       "variables":self.generate_variable_initialisations()}
 
         return code
-    
+
+    def generate_variable_initialisations(self):
+        s = ""
+        for var in self.parameters:
+            s += "%(tab)s%(tab)s%(variable)s = None\n" % {"tab":self.tab, "variable":var}
+        return s
+            
+
     def generate_name(self):
         name = ""
         for i in self.bits:
