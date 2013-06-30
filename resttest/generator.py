@@ -65,11 +65,12 @@ class Generator(object):
 
         return cls
 
-    def save(self, directory):
+    def save(self, directory, overwrite=True):
         self.create_directory(directory)
-
+        print self.classes
         for cls in self.classes.values():
             filename = cls.filename(directory)
+            if not overwrite and os.path.exists(filename): continue
             with open(filename, "w") as py:
                 py.write(cls.code)
 
