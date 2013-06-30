@@ -34,10 +34,8 @@ class TestTestMethod(unittest.TestCase):
         self.assertTrue(code.find("id = None") > 0)
 
 
-
-
-
-
+if __name__ == '__main__':
+    unittest.main()
 
 
 
