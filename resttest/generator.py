@@ -67,7 +67,6 @@ class Generator(object):
 
     def save(self, directory, overwrite=True):
         self.create_directory(directory)
-        print self.classes
         for cls in self.classes.values():
             filename = cls.filename(directory)
             if not overwrite and os.path.exists(filename): continue
